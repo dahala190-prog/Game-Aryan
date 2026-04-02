@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+<title>Ultimate Joke Game 🔥😂🎮 | Dahal Realm</title>
+<style>
+/* RESET & BASE */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, 'Roboto', sans-serif;
+  text-align: center;
+  padding: 20px;
+  min-height: 100vh;
+  background: radial-gradient(circle at 10% 30%, #ff9a9e, #fad0c4, #fad0c4, #ffdde1);
+  background-size: 200% 200%;
+  animation: gradientFlow 12s ease infinite;
+  transition: all 0.3s ease;
+}
+
+@keyframes gradientFlow {
+  0% { background-position: 0% 0%; }
+  50% { background-position: 100% 100%; }
+  100% { background-position: 0% 0%; }
+}
+
+/* GLASS CARD CONTAINER */
+.container {
+  background: rgba(255, 255, 255, 0.92);
+  backdrop-filter: blur(8px);
+  border-radius: 40px;
+  max-width: 750px;
+  margin: 20px auto;
+  padding: 28px 24px;
+  box-shadow: 0 25px 45px rgba(0, 0, 0, 0.2), 0 0 0 1px rgba(255, 255, 255, 0.5) inset;
+  transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+  border: 1px solid rgba(255,255,240,0.6);
+}
+
+.container:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 35px 55px rgba(0, 0, 0, 0.25);
+}
+
+.hidden {
+  display: none;
+}
+
+h2, h3 {
+  font-weight: 700;
+  letter-spacing: -0.3px;
+  background: linear-gradient(135deg, #1f2b3c, #2c3e66);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  display: inline-block;
+  margin-bottom: 12px;
+}
+
+h2 { font-size: 1.9rem; }
+h3 { font-size: 1.4rem; }
+
+button, input, select {
+  margin: 8px;
+  padding: 12px 18px;
+  border-radius: 60px;
+  border: none;
+  outline: none;
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-family: inherit;
+  transition: 0.2s ease;
+}
+
+input, select {
+  background: #fef9f0;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.05), inset 0 0 0 1px #ffe6c7;
+}
+
+input:focus, select:focus {
+  background: #fff6e8;
+  box-shadow: 0 0 0 3px rgba(255, 150, 100, 0.4);
+  transform: scale(1.01);
+}
+
+button {
+  background: linear-gradient(95deg, #ff9966, #ff5e62);
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  box-shadow: 0 5px 12px rgba(255, 80, 40, 0.3);
+}
+
+button:hover {
+  transform: scale(1.05) translateY(-2px);
+  background: linear-gradient(95deg, #ff7a45, #ff3b3f);
+  box-shadow: 0 10px 20px rgba(255, 70, 30, 0.4);
+}
+
+button:active {
+  transform: scale(0.97);
+}
+
+#joke {
+  margin: 20px 0;
+  min-height: 110px;
+  padding: 20px;
+  background: rgba(255, 250, 240, 0.95);
+  border-radius: 48px;
+  font-size: 1.18rem;
+  line-height: 1.45;
+  font-weight: 500;
+  color: #1e2a3a;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.1), inset 0 1px 0 white;
+  border-left: 6px solid #ff9966;
+  text-align: left;
+  transition: 0.2s;
+}
+
+.info-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  background: rgba(255,235,215,0.7);
+  padding: 14px 20px;
+  border-radius: 60px;
+  margin: 15px 0;
+  font-weight: 600;
+  backdrop-filter: blur(4px);
+}
+
+.info-grid div {
+  background: white;
+  padding: 6px 15px;
+  border-radius: 40px;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  font-size: 0.9rem;
+}
+
+#leaderboard {
+  margin-top: 18px;
+  padding: 12px;
+  background: #fff5ea;
+  border-radius: 32px;
+  max-height: 200px;
+  overflow-y: auto;
+  font-size: 0.9rem;
+  text-align: left;
+  box-shadow: inset 0 0 0 1px #ffdec2, 0 4px 12px rgba(0,0,0,0.05);
+}
+
+#leaderboard div {
+  padding: 6px 12px;
+  border-bottom: 1px solid #ffe0c0;
+  font-weight: 500;
+}
+
+#result {
+  font-weight: bold;
+  background: #f4f0e6;
+  border-radius: 40px;
+  padding: 12px;
+  margin-top: 12px;
+  font-size: 0.95rem;
+}
+
+.credit {
+  margin-top: 20px;
+  font-size: 0.8rem;
+  opacity: 0.7;
+  text-align: center;
+}
+
+body.dark {
+  background: radial-gradient(circle at 30% 10%, #1f2b3c, #0a0f1a);
+  animation: none;
+}
+
+body.dark .container {
+  background: rgba(20, 24, 35, 0.92);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,200,0.15);
+  color: #f0f0f0;
+}
+
+body.dark h2, body.dark h3 {
+  background: linear-gradient(135deg, #ffc3a0, #ffafbd);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+body.dark input, body.dark select {
+  background: #2a2e3f;
+  color: #fef2e0;
+  border: 1px solid #ffa56430;
+}
+
+body.dark #joke {
+  background: #232837;
+  color: #ffefcf;
+  border-left-color: #ff8c5a;
+}
+
+body.dark .info-grid {
+  background: #1e2538;
+}
+
+body.dark .info-grid div {
+  background: #2c3349;
+  color: #ffe6c7;
+}
+
+body.dark button {
+  background: linear-gradient(95deg, #d45a3c, #b23c2e);
+}
+
+body.dark #leaderboard {
+  background: #1e2538;
+  color: #ffecce;
+}
+
+body.dark .credit {
+  color: #aaa;
+}
+
+@media (max-width: 550px) {
+  .container { padding: 18px; }
+  button, input, select { padding: 8px 14px; margin: 5px; }
+  #joke { font-size: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN PANEL - Dahal Realm -->
+<div id="auth" class="container">
+  <h2>🔐 Dahal Realm</h2>
+  <input id="username" placeholder="🎭 Username" autocomplete="off">
+  <input id="password" type="password" placeholder="🔒 Password">
+  <br>
+  <button onclick="window.register()">📝 Register</button>
+  <button onclick="window.login()">🚀 Login</button>
+  <p id="authMsg" style="margin-top: 15px; font-weight:500;"></p>
+  <div class="credit">✨ Created by Aryan Dahal ✨</div>
+</div>
+
+<!-- MAIN GAME APP -->
+<div id="app" class="container hidden">
+  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+    <h2>👋 Welcome, <span id="userDisplay"></span> 🎉</h2>
+    <div>
+      <button onclick="window.logout()">🚪 Exit</button>
+      <button onclick="window.toggleDark()">🌙 Dark Mode</button>
+    </div>
+  </div>
+
+  <hr style="margin: 15px 0; opacity:0.3;">
+
+  <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+    <select id="language">
+      <option value="en">🇬🇧 English (Text & Speech)</option>
+      <option value="ne">🇳🇵 नेपाली (Speech Only, Text English)</option>
+    </select>
+    <select id="category">
+      <option value="random">🌀 Random</option>
+      <option value="programming">💻 Programming</option>
+      <option value="general">🎭 General</option>
+    </select>
+    <select id="difficulty">
+      <option value="easy">🌿 Easy (15s)</option>
+      <option value="medium" selected>⚡ Medium (10s)</option>
+      <option value="hard">🔥 Hard (5s)</option>
+    </select>
+    <select id="mode">
+      <option value="single">🎮 Single Player</option>
+      <option value="multi">👥 Multiplayer</option>
+    </select>
+  </div>
+
+  <div class="info-grid">
+    <div>❤️ Lives: <strong id="lives">3</strong></div>
+    <div>🎭 Player: <strong id="player">Player 1</strong></div>
+    <div>⏱ Time: <strong id="timer">10</strong> sec</div>
+    <div>🏆 Score: <strong id="scoreDisplay">0</strong></div>
+  </div>
+
+  <div id="joke">✨✨ Press "Get Joke" — laughter awaits! ✨✨</div>
+
+  <div style="display: flex; gap: 15px; justify-content: center; margin: 5px 0 10px;">
+    <button onclick="window.getJoke()">🎤 Get Joke</button>
+    <button onclick="window.speakJoke()">🔊 Speak (🎙️)</button>
+  </div>
+
+  <hr style="margin: 12px 0;">
+
+  <input id="guess" placeholder="💡 Guess punchline here..." style="width: 70%;">
+  <button onclick="window.checkGuess()">✅ Submit Guess</button>
+
+  <p id="result" style="min-height: 55px;"></p>
+
+  <h3>🏆 Hall of Fame</h3>
+  <div id="leaderboard">✨ Log in to see your epic scores ✨</div>
+  <div class="credit">✨ Created by Aryan Dahal ✨</div>
+</div>
+
+<script>
+// ================================ GLOBAL STATE =================================
+let currentUser = null;
+
+// Game core
+let currentSetup = "";          // joke setup (always English)
+let currentPunchline = "";      // punchline (English)
+let activeTimer = null;
+let livesLeft = 3;
+let singleScore = 0;
+let multiScores = {1:0, 2:0};
+let activePlayer = 1;
+
+// DOM shortcuts
+const authDiv = document.getElementById('auth');
+const appDiv = document.getElementById('app');
+const userSpan = document.getElementById('userDisplay');
+const usernameInp = document.getElementById('username');
+const passwordInp = document.getElementById('password');
+const authMsg = document.getElementById('authMsg');
+const languageSelect = document.getElementById('language');
+const categorySelect = document.getElementById('category');
+const difficultySelect = document.getElementById('difficulty');
+const modeSelect = document.getElementById('mode');
+const livesSpan = document.getElementById('lives');
+const playerSpan = document.getElementById('player');
+const timerSpan = document.getElementById('timer');
+const jokeDiv = document.getElementById('joke');
+const guessInput = document.getElementById('guess');
+const resultPara = document.getElementById('result');
+const scoreDisplaySpan = document.getElementById('scoreDisplay');
+const leaderboardDiv = document.getElementById('leaderboard');
+
+// Helper: update score UI
+function updateScoreUI() {
+  if (modeSelect.value === 'multi') {
+    scoreDisplaySpan.innerText = `P1:${multiScores[1]} | P2:${multiScores[2]}`;
+  } else {
+    scoreDisplaySpan.innerText = singleScore;
+  }
+}
+
+// Load scores from localStorage
+function loadScores() {
+  if (!currentUser) return;
+  const users = JSON.parse(localStorage.getItem("users")) || {};
+  const userData = users[currentUser];
+  if (userData && userData.scores && userData.scores.length) {
+    let bestScores = [...userData.scores].sort((a,b)=>b-a).slice(0,8);
+    leaderboardDiv.innerHTML = bestScores.map((sc,i)=>`<div>🏅 ${i+1}. ${sc} points</div>`).join('');
+    if(bestScores.length===0) leaderboardDiv.innerHTML = "✨ No scores yet. Play! ✨";
+  } else {
+    leaderboardDiv.innerHTML = "✨ No scores yet. Finish a game! ✨";
+  }
+}
+
+// Save final score
+function saveScoreToHistory(finalScore) {
+  if (!currentUser) return;
+  let users = JSON.parse(localStorage.getItem("users")) || {};
+  if (users[currentUser]) {
+    if (!users[currentUser].scores) users[currentUser].scores = [];
+    users[currentUser].scores.push(finalScore);
+    localStorage.setItem("users", JSON.stringify(users));
+    loadScores();
+  }
+}
+
+// full reset after game over
+function fullReset(resetMessage = false) {
+  if (activeTimer) clearInterval(activeTimer);
+  if (modeSelect.value === 'multi') {
+    multiScores = {1:0,2:0};
+    activePlayer = 1;
+    playerSpan.innerText = "Player 1";
+  } else {
+    singleScore = 0;
+  }
+  livesLeft = 3;
+  livesSpan.innerText = livesLeft;
+  updateScoreUI();
+  currentPunchline = "";
+  currentSetup = "";
+  const diff = difficultySelect.value;
+  timerSpan.innerText = diff === "easy" ? 15 : (diff === "hard" ? 5 : 10);
+  resultPara.innerText = "";
+  guessInput.value = "";
+  if (!resetMessage) jokeDiv.innerText = "✨ Ready for jokes! Get Joke ✨";
+}
+
+// lose life handler
+function loseLife(reasonMsg, showPunchline = true) {
+  if (activeTimer) clearInterval(activeTimer);
+  window.speechSynthesis.cancel();
+  
+  const punchMsg = showPunchline && currentPunchline ? ` 💡 Answer: "${currentPunchline}"` : "";
+  resultPara.innerText = `${reasonMsg}${punchMsg}`;
+  livesLeft--;
+  livesSpan.innerText = livesLeft;
+  
+  if (livesLeft <= 0) {
+    let finalPoints = 0;
+    if (modeSelect.value === 'multi') {
+      finalPoints = Math.max(multiScores[1], multiScores[2]);
+      resultPara.innerText += ` 🎮 Game Over! P1:${multiScores[1]} | P2:${multiScores[2]}. ${multiScores[1] > multiScores[2] ? "👑 Player1 wins!" : (multiScores[2] > multiScores[1] ? "👑 Player2 wins!" : "Tie!")}`;
+    } else {
+      finalPoints = singleScore;
+      resultPara.innerText += ` 💀 GAME OVER! Your final score: ${finalPoints}`;
+    }
+    if (currentUser && finalPoints > 0) saveScoreToHistory(finalPoints);
+    fullReset(true);
+    jokeDiv.innerText = "💀 Game Over. Press 'Get Joke' to restart fresh! 💀";
+    currentPunchline = "";
+    return;
+  }
+  
+  if (modeSelect.value === 'multi') {
+    activePlayer = activePlayer === 1 ? 2 : 1;
+    playerSpan.innerText = `Player ${activePlayer}`;
+    resultPara.innerText += ` 🔁 Turn → Player ${activePlayer}`;
+  }
+  currentPunchline = "";
+  currentSetup = "";
+  jokeDiv.innerText = "⏳ Time's up or wrong! Grab a new joke.";
+}
+
+// start timer
+function startJokeTimer() {
+  if (activeTimer) clearInterval(activeTimer);
+  let diff = difficultySelect.value;
+  let limit = diff === "easy" ? 15 : (diff === "hard" ? 5 : 10);
+  timerSpan.innerText = limit;
+  activeTimer = setInterval(() => {
+    let curr = parseInt(timerSpan.innerText);
+    if (isNaN(curr)) curr = limit;
+    if (curr <= 1) {
+      clearInterval(activeTimer);
+      activeTimer = null;
+      timerSpan.innerText = "0";
+      if (currentPunchline) {
+        loseLife(`⏰ TIME OUT! You didn't guess in time.`, true);
+      }
+    } else {
+      timerSpan.innerText = curr - 1;
+    }
+  }, 1000);
+}
+
+// FETCH JOKE - always displays English text (no translation)
+async function getJoke() {
+  if (activeTimer) clearInterval(activeTimer);
+  window.speechSynthesis.cancel();
+  
+  const category = categorySelect.value;
+  
+  jokeDiv.innerText = "🤣 Loading a crispy joke...";
+  resultPara.innerText = "";
+  guessInput.value = "";
+  
+  let url = "https://official-joke-api.appspot.com/random_joke";
+  if (category !== "random") url = `https://official-joke-api.appspot.com/jokes/${category}/random`;
+  
+  try {
+    let response = await fetch(url);
+    let data = await response.json();
+    let jokeData = category === "random" ? data : (Array.isArray(data) ? data[0] : data);
+    if (!jokeData || !jokeData.setup) throw new Error("invalid joke");
+    
+    currentSetup = jokeData.setup;
+    currentPunchline = jokeData.punchline;
+    
+    // Display the joke in English only
+    jokeDiv.innerText = `${currentSetup}\n\n🎯 (Guess the punchline!) 🎯`;
+    startJokeTimer();
+  } catch(err) {
+    console.error(err);
+    jokeDiv.innerText = "⚠️ Joke server error. Retry? ⚠️";
+    currentPunchline = "";
+  }
+}
+
+// SPEAK FUNCTION - speaks the joke setup in selected language voice
+function speakJoke() {
+  if (!currentSetup) {
+    resultPara.innerText = "⚠️ No joke loaded! Click 'Get Joke' first.";
+    return;
+  }
+  
+  // Cancel any ongoing speech
+  if (window.speechSynthesis) {
+    window.speechSynthesis.cancel();
+  }
+  
+  const textToSpeak = currentSetup;
+  const currentLang = languageSelect.value;
+  
+  // Create utterance
+  const utterance = new SpeechSynthesisUtterance(textToSpeak);
+  
+  // Set language: Nepali voice if selected, otherwise English
+  if (currentLang === 'ne') {
+    utterance.lang = 'ne-NP';
+  } else {
+    utterance.lang = 'en-US';
+  }
+  
+  utterance.rate = 0.9;
+  utterance.pitch = 1.0;
+  utterance.volume = 1;
+  
+  utterance.onerror = function(event) {
+    console.error("Speech error:", event);
+    resultPara.innerText = "⚠️ Speech not supported. Try a different browser.";
+  };
+  
+  utterance.onstart = function() {
+    console.log("Speaking...");
+  };
+  
+  window.speechSynthesis.speak(utterance);
+}
+
+// Check guess
+async function checkGuess() {
+  if (!currentPunchline) {
+    resultPara.innerText = "❓ No active joke! Click 'Get Joke' first.";
+    return;
+  }
+  if (activeTimer) clearInterval(activeTimer);
+  
+  const guess = guessInput.value.trim();
+  if (guess === "") {
+    resultPara.innerText = "📝 Enter your guess!";
+    startJokeTimer();
+    return;
+  }
+  
+  const diff = difficultySelect.value;
+  const normalizedGuess = guess.toLowerCase().replace(/[^\w\s]/g, '');
+  const normalizedAnswer = currentPunchline.toLowerCase().replace(/[^\w\s]/g, '');
+  let isCorrect = false;
+  
+  if (diff === "hard") {
+    isCorrect = normalizedGuess === normalizedAnswer;
+  } else {
+    isCorrect = normalizedAnswer.includes(normalizedGuess) || normalizedGuess.includes(normalizedAnswer);
+  }
+  
+  if (isCorrect) {
+    window.speechSynthesis.cancel();
+    let points = diff === "easy" ? 10 : (diff === "hard" ? 30 : 20);
+    resultPara.innerText = `🎉 CORRECT! 🎉 "${currentPunchline}" +${points} pts!`;
+    
+    if (modeSelect.value === "multi") {
+      multiScores[activePlayer] = (multiScores[activePlayer] || 0) + points;
+      updateScoreUI();
+      activePlayer = activePlayer === 1 ? 2 : 1;
+      playerSpan.innerText = `Player ${activePlayer}`;
+      resultPara.innerText += ` 🔄 Turn → Player ${activePlayer}`;
+    } else {
+      singleScore += points;
+      updateScoreUI();
+    }
+    currentPunchline = "";
+    currentSetup = "";
+    jokeDiv.innerText = "✅ Amazing! Grab another joke!";
+    const diffVal = difficultySelect.value;
+    timerSpan.innerText = diffVal === "easy" ? 15 : (diffVal === "hard" ? 5 : 10);
+    guessInput.value = "";
+    if (activeTimer) clearInterval(activeTimer);
+    activeTimer = null;
+  } else {
+    loseLife(`❌ Wrong guess: "${guess}"`, true);
+    guessInput.value = "";
+    if (!currentPunchline) {
+      jokeDiv.innerText = "💥 Incorrect! New joke required.";
+    }
+  }
+}
+
+// ======================= AUTHENTICATION =======================
+window.register = function() {
+  const u = usernameInp.value.trim();
+  const p = passwordInp.value.trim();
+  if (!u || !p) { authMsg.innerText = "❌ Username & password needed!"; return; }
+  let users = JSON.parse(localStorage.getItem("users")) || {};
+  if (users[u]) { authMsg.innerText = "⚠️ User exists!"; return; }
+  users[u] = { password: p, scores: [] };
+  localStorage.setItem("users", JSON.stringify(users));
+  authMsg.innerText = "✅ Registered! Login now.";
+  usernameInp.value = "";
+  passwordInp.value = "";
+};
+
+window.login = function() {
+  const u = usernameInp.value.trim();
+  const p = passwordInp.value.trim();
+  let users = JSON.parse(localStorage.getItem("users")) || {};
+  if (users[u] && users[u].password === p) {
+    currentUser = u;
+    authDiv.classList.add("hidden");
+    appDiv.classList.remove("hidden");
+    userSpan.innerText = currentUser;
+    fullReset();
+    loadScores();
+  } else {
+    authMsg.innerText = "❌ Invalid credentials!";
+  }
+};
+
+window.logout = function() { location.reload(); };
+window.toggleDark = function() { document.body.classList.toggle("dark"); };
+
+// Event listeners for mode/difficulty changes
+modeSelect.addEventListener('change', () => {
+  if (currentUser) {
+    fullReset();
+    jokeDiv.innerText = "🎮 Mode changed. Fresh start!";
+  }
+});
+difficultySelect.addEventListener('change', () => {
+  if (!currentPunchline && activeTimer === null) {
+    const newTime = difficultySelect.value === "easy" ? 15 : (difficultySelect.value === "hard" ? 5 : 10);
+    timerSpan.innerText = newTime;
+  }
+});
+
+// Expose globals for inline onclick
+window.getJoke = getJoke;
+window.speakJoke = speakJoke;
+window.checkGuess = checkGuess;
+</script>
+</body>
+</html>
